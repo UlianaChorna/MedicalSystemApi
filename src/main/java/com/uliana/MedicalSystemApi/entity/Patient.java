@@ -29,12 +29,3 @@ public class Patient {
     private Set<Reception> reception;
 }
 
-//{
-//
-//        "name": "Pavlo",
-//        "surName": "Chornyi",
-//        "gender": "M",
-//        "age": 30
-//
-//
-//        }
