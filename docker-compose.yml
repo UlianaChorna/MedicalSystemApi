@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql
+    container_name: ll7medicalsystemapi-db
+    restart: always
+    environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: medicalSystem
+    volumes:
+        - ./dbdata:/var/lib/mysql
+    ports:
+      - 3306:3306
+
