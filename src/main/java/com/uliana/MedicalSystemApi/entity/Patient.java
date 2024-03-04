@@ -28,4 +28,3 @@ public class Patient {
     })
     private Set<Reception> reception;
 }
-

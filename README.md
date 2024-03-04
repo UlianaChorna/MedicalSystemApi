@@ -10,6 +10,10 @@ The application configuration is done using the `application.yaml` file. The fol
 
 `spring.datasource.password`: The password for the database (default is `root`).
 
+### Running the Application:
+To run the application, you can use Maven. Navigate to the project directory and execute the following command:
+
+`mvn spring-boot:run`
 ### Docker Setup
 To run the application using Docker, you can use the following Docker Compose configuration:
 
@@ -40,3 +44,6 @@ docker-compose up
 1) The application will start, and you can access the APIs using tools like Postman or curl.
  #### Note
 Make sure to customize the database configuration in the application.yaml file according to your environment.
+### Swagger Configuration:
+Swagger UI is integrated into the application for easy API testing and documentation. You can access the Swagger UI at the following URL when the application is running:
+`http://localhost:8080/swagger-ui/index.html#/`
