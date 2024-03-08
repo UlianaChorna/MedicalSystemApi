@@ -35,8 +35,8 @@ jobs:
         run: |
             sudo apt-get install -y docker.io
       - name: Pull Image from docker hub
-        run: docker pull uliana1945/medicalsystemapi:latest
+        run: sudo docker pull uliana1945/medicalsystemapi:latest
       - name: Delete old container
-        run: docker rm -f medicalSystemApi-container
+        run: sudo docker rm -f medicalSystemApi-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name medicalSystemApi-container uliana1945/medicalsystemapi
+        run: sudo docker run -d -p 8080:8080 --name medicalSystemApi-container uliana1945/medicalsystemapi
