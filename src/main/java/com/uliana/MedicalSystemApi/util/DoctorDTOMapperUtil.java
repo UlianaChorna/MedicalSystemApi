@@ -8,6 +8,9 @@ import lombok.experimental.UtilityClass;
 public class DoctorDTOMapperUtil {
 
     public DoctorDTO mapToDTO(Doctor doctor) {
+        if (doctor == null) {
+            return null;
+        }
 
         return new DoctorDTO()
                 .setId(doctor.getId())

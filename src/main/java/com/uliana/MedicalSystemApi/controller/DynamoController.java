@@ -21,6 +21,5 @@ public class DynamoController {
 @GetMapping("/{uuid}")
     public DynamoRecordDTO getById(@PathVariable UUID uuid) {
     return dynamoClient.getById(uuid);
-}
-
+    }
 }

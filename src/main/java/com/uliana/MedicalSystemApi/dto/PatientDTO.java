@@ -4,11 +4,13 @@ package com.uliana.MedicalSystemApi.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.Objects;
 import java.util.Set;
 @ToString
 @Getter
@@ -26,4 +28,17 @@ public class PatientDTO {
     @Max(value = 110)
     private Integer age;
     private Set<ReceptionDTO> receptions;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PatientDTO that = (PatientDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(gender, that.gender) && Objects.equals(age, that.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, gender, age);
+    }
 }
