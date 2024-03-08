@@ -18,11 +18,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Resolve unmet dependencies
-        run: sudo apt-get -f install
+      - name: Update package lists
+        run:  sudo apt-get update
+      - name: Remove conflicting packages
+        run:  sudo apt-get remove -y containerd
       - name: Install Docker
         run: |
-          sudo apt-get update
           sudo apt-get install -y docker.io
       - name: Build Project
         run: mvn clean install -DskipTests
