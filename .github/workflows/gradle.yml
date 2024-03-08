@@ -23,17 +23,17 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t UlianaChorna/medicalSystemApi .
+        run: docker build -t ulianachorna/medicalsystemapi .
       - name: Publish image to docker hub
-        run: docker push UlianaChorna/medicalSystemApi:latest
+        run: docker push ulianachorna/medicalsystemapi:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
       - name: Pull Image from docker hub
-        run: docker pull UlianaChorna/medicalSystemApi:latest
+        run: docker pull ulianachorna/medicalsystemapi:latest
       - name: Delete old container
         run: docker rm -f medicalSystemApi-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name medicalSystemApi-container UlianaChorna/medicalSystemApi
+        run: docker run -d -p 8080:8080 --name medicalSystemApi-container ulianachorna/medicalsystemapi
