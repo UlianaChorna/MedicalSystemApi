@@ -18,6 +18,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Resolve unmet dependencies
+        run: sudo apt-get -f install
       - name: Install Docker
         run: |
           sudo apt-get update
