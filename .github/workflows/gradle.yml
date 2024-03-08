@@ -18,13 +18,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Update package lists
-        run:  sudo apt-get update
-      - name: Remove conflicting packages
-        run:  sudo apt-get remove -y containerd.io
-      - name: Install Docker
-        run: |
-          sudo apt-get install -y docker.io
       - name: Build Project
         run: mvn clean install -DskipTests
       - name: Login to docker hub
@@ -38,6 +31,13 @@ jobs:
     needs: build
     runs-on: [aws-ec2]
     steps:
+      - name: Update package lists
+        run: sudo apt-get update
+      - name: Remove conflicting packages
+        run: sudo apt-get remove -y containerd.io
+      - name: Install Docker
+        run: |
+            sudo apt-get install -y docker.io
       - name: Pull Image from docker hub
         run: docker pull uliana1945/medicalsystemapi:latest
       - name: Delete old container
