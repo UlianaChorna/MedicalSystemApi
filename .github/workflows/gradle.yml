@@ -21,7 +21,7 @@ jobs:
       - name: Update package lists
         run:  sudo apt-get update
       - name: Remove conflicting packages
-        run:  sudo apt-get remove -y containerd
+        run:  sudo apt-get remove -y containerd.io
       - name: Install Docker
         run: |
           sudo apt-get install -y docker.io
