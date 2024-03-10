@@ -4,22 +4,20 @@ import com.uliana.MedicalSystemApi.dto.PatientDTO;
 import com.uliana.MedicalSystemApi.entity.Patient;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
-import com.uliana.MedicalSystemApi.repository.ReceptionRepository;
 import com.uliana.MedicalSystemApi.service.PatientService;
 import com.uliana.MedicalSystemApi.util.PatientDTOMapperUtil;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.uliana.MedicalSystemApi.util.ExceptionMessagesUtil.PATIENT_FOUND_MESSAGE;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 @Service
 public class PatientServiceImpl implements PatientService {
-    public final PatientRepository patientRepository;
-    private final ReceptionRepository receptionRepository;
+    private final PatientRepository patientRepository;
 
     @Override
     @Transactional

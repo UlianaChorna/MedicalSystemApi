@@ -15,7 +15,18 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ReceptionDTOMapperUtil {
     public ReceptionDTO mapToFullDTO(Reception reception) {
+        if (reception == null) {
+            return null;
+        }
+
         ReceptionDTO receptionDTO = mapToDTO(reception);
+
+        Doctor doctor = reception.getDoctor();
+
+        if (doctor != null) {
+            receptionDTO.setDoctorId(doctor.getId());
+        }
+
         List<Long> patients = new ArrayList<>();
         if (Objects.nonNull(reception.getPatient())) {
             patients = reception.getPatient()
@@ -24,15 +35,16 @@ public class ReceptionDTOMapperUtil {
                     .collect(Collectors.toList());
         }
 
-        Doctor doctor = reception.getDoctor();
-
         receptionDTO.setPatients(patients);
-        receptionDTO.setDoctorId(doctor.getId());
 
         return receptionDTO;
     }
 
     public ReceptionDTO mapToDTO(Reception reception) {
+        if (reception == null) {
+            return null;
+        }
+
         return new ReceptionDTO()
                 .setId(reception.getId())
                 .setDate(reception.getData())
@@ -40,7 +52,9 @@ public class ReceptionDTOMapperUtil {
     }
 
     public Reception mapFromDTO(ReceptionDTO dto, Set<Patient> patients, Doctor doctor) {
-
+        if (dto == null) {
+            return null;
+        }
         return new Reception()
                 .setId(dto.getId())
                 .setData(dto.getDate())

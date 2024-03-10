@@ -36,4 +36,5 @@ public class Reception {
             CascadeType.DETACH
     })
     private Set<Patient> patient;
+
 }

@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -52,7 +53,10 @@ public class ReceptionServiceImpl implements ReceptionService {
         return ReceptionDTOMapperUtil.mapToFullDTO(reception);
     }
 
-    private Set<Patient> getPatients(List<Long> patientIdList) {
+    Set<Patient> getPatients(List<Long> patientIdList) {
+        if (patientIdList == null) {
+            return new HashSet<>();
+        }
         return patientIdList.stream()
                 .map(patientRepository::findById)
                 .map(optional -> optional.orElse(null))

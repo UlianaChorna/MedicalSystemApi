@@ -15,9 +15,11 @@ app:
 
 spring:
   datasource:
+
     url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:medicalSystem}?serverTimezone=UTC
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
+
   jpa:
     show-sql: true
     hibernate:

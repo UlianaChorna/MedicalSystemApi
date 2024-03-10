@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class PatientDTOMapperUtil {
 
     public PatientDTO mapToDTO(Patient patient) {
+        if (patient == null) {
+            return null;
+        }
         Set<ReceptionDTO> receptions = new HashSet<>();
         if (Objects.nonNull(patient.getReception())) {
             receptions = patient.getReception()
