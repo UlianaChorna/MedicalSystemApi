@@ -4,7 +4,6 @@ import com.uliana.MedicalSystemApi.dto.PatientDTO;
 import com.uliana.MedicalSystemApi.entity.Patient;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,19 +29,11 @@ class PatientServiceImplTest {
     private PatientServiceImpl patientService;
     @Captor
     private ArgumentCaptor<Patient> captor;
-
     private PatientDTO dto;
     public static final String PATIENT_NAME = "patient";
     public static final String PATIENT_SURNAME = "surnamePatient";
     public static final String PATIENT_GENDER = "gender";
     public static  final  Long PATIENT_ID = 1L;
-
-
-
-    @AfterEach
-    void tearDown() {
-
-    }
 
     @BeforeEach
     void setUp() {
@@ -70,15 +61,6 @@ class PatientServiceImplTest {
         assertThat(actualPatient.getGender()).isEqualTo(expectPatient.getGender());
         assertThat(actualPatient.getAge()).isEqualTo(expectPatient.getAge());
         assertThat(actualPatient.getReception()).isEqualTo(expectPatient.getReception());
-    }
-
-    private static PatientDTO preparePatientDTO() {
-        return new PatientDTO()
-                .setName(PATIENT_NAME)
-                .setAge(10)
-                .setSurname(PATIENT_SURNAME)
-                .setGender(PATIENT_GENDER)
-                .setReceptions(new HashSet<>());
     }
 
     @Test
@@ -109,5 +91,14 @@ class PatientServiceImplTest {
         when(patientRepository.findById(PATIENT_ID)).thenReturn(Optional.empty());
         //Then
         assertThrows(ResourceNotFoundException.class, () -> patientService.getById(PATIENT_ID));
+    }
+
+    private static PatientDTO preparePatientDTO() {
+        return new PatientDTO()
+                .setName(PATIENT_NAME)
+                .setAge(10)
+                .setSurname(PATIENT_SURNAME)
+                .setGender(PATIENT_GENDER)
+                .setReceptions(new HashSet<>());
     }
 }

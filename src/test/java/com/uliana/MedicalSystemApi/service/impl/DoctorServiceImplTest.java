@@ -4,7 +4,6 @@ import com.uliana.MedicalSystemApi.dto.DoctorDTO;
 import com.uliana.MedicalSystemApi.entity.Doctor;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.DoctorRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,19 +29,11 @@ class DoctorServiceImplTest {
     private DoctorServiceImpl doctorService;
     @Captor
     private ArgumentCaptor<Doctor> captor;
-
     private DoctorDTO dto;
     public static final String DOCTOR_NAME = "doctor";
     public static final String DOCTOR_SURNAME = "surnameDoctor";
     public static final String DOCTOR_SPECIALTY = "specialty";
-    public static  final  Long DOCTOR_ID = 1L;
-
-
-
-    @AfterEach
-    void tearDown() {
-
-    }
+    public static final Long DOCTOR_ID = 1L;
 
     @BeforeEach
     void setUp() {
@@ -57,7 +48,6 @@ class DoctorServiceImplTest {
                 .setSurname(DOCTOR_SURNAME)
                 .setSpecialty(DOCTOR_SPECIALTY);
 
-
         // When
         doctorService.create(dto);
 
@@ -67,13 +57,6 @@ class DoctorServiceImplTest {
         assertThat(actualDoctor.getName()).isEqualTo(expectDoctor.getName());
         assertThat(actualDoctor.getSurname()).isEqualTo(expectDoctor.getSurname());
         assertThat(actualDoctor.getSpecialty()).isEqualTo(expectDoctor.getSpecialty());
-    }
-
-    private static DoctorDTO prepareDoctorDTO() {
-        return new DoctorDTO()
-                .setName(DOCTOR_NAME)
-                .setSurname(DOCTOR_SURNAME)
-                .setSpecialty(DOCTOR_SPECIALTY);
     }
 
     @Test
@@ -97,10 +80,16 @@ class DoctorServiceImplTest {
     void getById_shouldThrow(){
         //Given
         dto.setId(DOCTOR_ID);
-
         //When
         when(doctorRepository.findById(DOCTOR_ID)).thenReturn(Optional.empty());
         //Then
         assertThrows(ResourceNotFoundException.class, () -> doctorService.getById(DOCTOR_ID));
+    }
+
+    private static DoctorDTO prepareDoctorDTO() {
+        return new DoctorDTO()
+                .setName(DOCTOR_NAME)
+                .setSurname(DOCTOR_SURNAME)
+                .setSpecialty(DOCTOR_SPECIALTY);
     }
 }

@@ -1,6 +1,5 @@
 package com.uliana.MedicalSystemApi;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;

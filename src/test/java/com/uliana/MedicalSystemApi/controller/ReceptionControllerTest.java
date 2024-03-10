@@ -1,8 +1,8 @@
 package com.uliana.MedicalSystemApi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uliana.MedicalSystemApi.dto.DoctorDTO;
-import com.uliana.MedicalSystemApi.service.DoctorService;
+import com.uliana.MedicalSystemApi.dto.ReceptionDTO;
+import com.uliana.MedicalSystemApi.service.ReceptionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,61 +13,62 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Date;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-@ExtendWith(MockitoExtension.class)
-class DoctorControllerTest {
 
+@ExtendWith(MockitoExtension.class)
+public class ReceptionControllerTest {
     @Mock
-    private DoctorService doctorService;
+    private ReceptionService receptionService;
     private MockMvc mockMvc;
-    private DoctorController doctorController;
+    private ReceptionController receptionController;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        doctorController = new DoctorController(doctorService);
-        mockMvc = MockMvcBuilders.standaloneSetup(doctorController).build();
+        receptionController = new ReceptionController(receptionService);
+        mockMvc = MockMvcBuilders.standaloneSetup(receptionController).build();
     }
 
     @Test
-    void createDoctor() throws Exception {
-        DoctorDTO doctorDTO = prepareDto();
+    void createReception() throws Exception {
+        ReceptionDTO receptionDTO = prepareDto();
 
-        when(doctorService.create(any(DoctorDTO.class))).thenReturn(doctorDTO);
+        when(receptionService.create(any(ReceptionDTO.class))).thenReturn(receptionDTO);
 
-        mockMvc.perform(post("/doctor")
+        mockMvc.perform(post("/reception")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(doctorDTO)))
+                        .content(asJsonString(receptionDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Jane"))
-                .andExpect(jsonPath("$.surname").value("Smith"))
-                .andExpect(jsonPath("$.specialty").value("testSpeciality"));
+                .andExpect(jsonPath("$.doctorId").value(1))
+                .andExpect(jsonPath("$.medicines").value("medicines"));
 
-        verify(doctorService).create(any(DoctorDTO.class));
+        verify(receptionService).create(any(ReceptionDTO.class));
     }
 
     @Test
     void getById() throws Exception {
-        DoctorDTO doctorDTO = prepareDto();
+        ReceptionDTO receptionDTO = prepareDto();
 
-        when(doctorService.getById(1L)).thenReturn(doctorDTO);
+        when(receptionService.getById(1L)).thenReturn(receptionDTO);
 
-        mockMvc.perform(get("/doctor/1"))
+        mockMvc.perform(get("/reception/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Jane"))
-                .andExpect(jsonPath("$.surname").value("Smith"))
-                .andExpect(jsonPath("$.specialty").value("testSpeciality"));
+                .andExpect(jsonPath("$.doctorId").value(1))
+                .andExpect(jsonPath("$.medicines").value("medicines"));
 
-        verify(doctorService).getById(1L);
+        verify(receptionService).getById(1L);
     }
 
     private String asJsonString(final Object obj) {
@@ -78,13 +79,16 @@ class DoctorControllerTest {
         }
     }
 
-    private DoctorDTO prepareDto() {
-        DoctorDTO doctorDTO = new DoctorDTO();
-        doctorDTO.setId(1L);
-        doctorDTO.setName("Jane");
-        doctorDTO.setSurname("Smith");
-        doctorDTO.setSpecialty("testSpeciality");
+    private ReceptionDTO prepareDto() {
+        ReceptionDTO receptionDTO = new ReceptionDTO();
+        receptionDTO.setId(1L);
+        receptionDTO.setDoctorId(1L);
+        receptionDTO.setPatients(List.of(1L));
+        receptionDTO.setMedicines("medicines");
+        receptionDTO.setDate(new Date());
 
-        return doctorDTO;
+        return receptionDTO;
     }
 }
+
+

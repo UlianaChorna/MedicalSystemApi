@@ -8,7 +8,6 @@ import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.DoctorRepository;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
 import com.uliana.MedicalSystemApi.repository.ReceptionRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,20 +33,11 @@ class ReceptionServiceImplTest {
     private ReceptionServiceImpl receptionService;
     @Captor
     private ArgumentCaptor<Reception> captor;
-
     private ReceptionDTO dto;
     private static final String RECEPTION_MEDICINES = "medicines";
     private static final Date RECEPTION_DATE = new Date();
     private  static  final  Long RECEPTION_ID = 1L;
     private  static  final  Long DOCTOR_ID = 1L;
-
-
-
-
-    @AfterEach
-    void tearDown() {
-
-    }
 
     @BeforeEach
     void setUp() {
@@ -57,8 +47,6 @@ class ReceptionServiceImplTest {
     @Test
     void create() {
         // Given
-
-
         // When
         when(doctorRepository.findById(dto.getDoctorId())).thenReturn(Optional.of(new Doctor()));
         when(patientRepository.findById(any())).thenReturn(Optional.of(new Patient()));
@@ -78,16 +66,6 @@ class ReceptionServiceImplTest {
         verify(doctorRepository).findById(dto.getDoctorId());
         verify(patientRepository, times(dto.getPatients().size())).findById(any());
         verify(receptionRepository).save(any());
-    }
-
-
-    private static ReceptionDTO prepareReceptionDTO() {
-        return new ReceptionDTO()
-                .setId(RECEPTION_ID)
-                .setDate(RECEPTION_DATE)
-                .setMedicines(RECEPTION_MEDICINES)
-                .setDoctorId(DOCTOR_ID)
-                .setPatients(List.of(1L));
     }
 
     @Test
@@ -123,9 +101,9 @@ class ReceptionServiceImplTest {
                 .setId(RECEPTION_ID)
                 .setData(RECEPTION_DATE)
                 .setMedicines(RECEPTION_MEDICINES);
-        Doctor doctor = new Doctor(); // Ініціалізуємо об'єкт Doctor
-        doctor.setId(DOCTOR_ID); // Встановлюємо ідентифікатор для об'єкта Doctor
-        reception.setDoctor(doctor); // Встановлюємо об'єкт Doctor у Reception
+        Doctor doctor = new Doctor();
+        doctor.setId(DOCTOR_ID);
+        reception.setDoctor(doctor);
 
         //When
         when(receptionRepository.findById(RECEPTION_ID)).thenReturn(Optional.of(reception));
@@ -200,6 +178,14 @@ class ReceptionServiceImplTest {
         verify(receptionRepository).save(reception);
         assertThat(reception.getPatient()).contains(patient);
         assertThat(result).isNotNull();
-        // Add additional assertions if needed
+    }
+
+    private static ReceptionDTO prepareReceptionDTO() {
+        return new ReceptionDTO()
+                .setId(RECEPTION_ID)
+                .setDate(RECEPTION_DATE)
+                .setMedicines(RECEPTION_MEDICINES)
+                .setDoctorId(DOCTOR_ID)
+                .setPatients(List.of(1L));
     }
 }
