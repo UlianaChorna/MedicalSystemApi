@@ -5,21 +5,21 @@ import com.uliana.MedicalSystemApi.dto.DoctorDTO;
 import com.uliana.MedicalSystemApi.service.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-@ExtendWith(MockitoExtension.class)
+
 class DoctorControllerTest {
 
     @Mock
@@ -68,6 +68,19 @@ class DoctorControllerTest {
                 .andExpect(jsonPath("$.specialty").value("testSpeciality"));
 
         verify(doctorService).getById(1L);
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        DoctorDTO doctor1 = prepareDto();
+        DoctorDTO doctor2 = prepareDto();
+
+        // Test equals
+        assertTrue(doctor1.equals(doctor2));
+        assertTrue(doctor2.equals(doctor1));
+
+        // Test hashCode
+        assertEquals(doctor1.hashCode(), doctor2.hashCode());
     }
 
     private String asJsonString(final Object obj) {

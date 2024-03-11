@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -69,6 +71,19 @@ public class ReceptionControllerTest {
                 .andExpect(jsonPath("$.medicines").value("medicines"));
 
         verify(receptionService).getById(1L);
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        ReceptionDTO reception1 = prepareDto();
+        ReceptionDTO reception2 = prepareDto();
+
+        // Test equals
+        assertTrue(reception1.equals(reception2));
+        assertTrue(reception2.equals(reception1));
+
+        // Test hashCode
+        assertEquals(reception1.hashCode(), reception1.hashCode());
     }
 
     private String asJsonString(final Object obj) {
