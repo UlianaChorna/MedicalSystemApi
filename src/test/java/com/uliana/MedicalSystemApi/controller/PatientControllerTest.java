@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -70,6 +72,19 @@ public class PatientControllerTest {
                 .andExpect(jsonPath("$.name").value("John"));
 
         verify(patientService).getById(1L);
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        PatientDTO patient1 = prepareDto();
+        PatientDTO patient2 = prepareDto();
+
+        // Test equals
+        assertTrue(patient1.equals(patient2));
+        assertTrue(patient2.equals(patient1));
+
+        // Test hashCode
+        assertEquals(patient1.hashCode(), patient2.hashCode());
     }
 
     private String asJsonString(final Object obj) {
