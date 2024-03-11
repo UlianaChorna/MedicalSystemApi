@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class PatientRepositoryTest {
     @Autowired
 
@@ -71,7 +69,7 @@ class PatientRepositoryTest {
     void getAllWithZeroAgeAndNameContains_ShouldIgnoreCase() {
         createAndPersistListOfPatient();
 
-        List<Patient> actualPatientList = patientRepository.getAllWithZeroAgeAndNameContains("tom");
+        List<Patient> actualPatientList = patientRepository.getAllWithZeroAgeAndNameContains("Tom");
         assertThat(actualPatientList).hasSize(1);
         assertThat(actualPatientList.getFirst().getName()).containsIgnoringCase("TOM");
         assertThat(actualPatientList.getFirst().getAge()).isEqualTo(0);
