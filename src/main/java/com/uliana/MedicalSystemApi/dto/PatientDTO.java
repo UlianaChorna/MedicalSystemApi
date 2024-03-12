@@ -28,6 +28,9 @@ public class PatientDTO {
     @Max(value = 110)
     private Integer age;
     private Set<ReceptionDTO> receptions;
+    @NotNull
+    private String email;
+    private boolean confirmed;
 
     @Override
     public boolean equals(Object o) {

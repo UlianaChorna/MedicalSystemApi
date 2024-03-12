@@ -31,6 +31,8 @@ public class PatientDTOMapperUtil {
                 .setSurname(patient.getSurname())
                 .setAge(patient.getAge())
                 .setGender(patient.getGender())
+                .setEmail(patient.getEmail())
+                .setConfirmed(patient.isConfirmed())
                 .setReceptions(receptions);
 
     }
@@ -41,7 +43,9 @@ public class PatientDTOMapperUtil {
                 .setId(dto.getId())
                 .setName(dto.getName())
                 .setAge(dto.getAge())
+                .setEmail(dto.getEmail())
                 .setGender(dto.getGender())
+                .setConfirmed(false)
                 .setSurname(dto.getSurname());
     }
 }
