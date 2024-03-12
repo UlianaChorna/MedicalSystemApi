@@ -2,6 +2,7 @@ package com.uliana.MedicalSystemApi.service.impl;
 
 import com.uliana.MedicalSystemApi.dto.PatientDTO;
 import com.uliana.MedicalSystemApi.entity.Patient;
+import com.uliana.MedicalSystemApi.entity.Reception;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,14 +13,16 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.HashSet;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PatientServiceImplTest {
@@ -48,7 +51,6 @@ class PatientServiceImplTest {
                 .setSurname(PATIENT_SURNAME)
                 .setGender(PATIENT_GENDER)
                 .setAge(10);
-
 
         // When
         patientService.create(dto);

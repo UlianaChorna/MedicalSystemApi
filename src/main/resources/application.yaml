@@ -28,3 +28,13 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: lyasya1945@gmail.com
+    password: iiyt zuqg zwjv vcru
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true

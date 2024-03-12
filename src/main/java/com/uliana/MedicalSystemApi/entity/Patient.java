@@ -19,6 +19,10 @@ public class Patient {
     private String surname;
     private String gender;
     private Integer age;
+    private String email;
+
+    private boolean confirmed;
+
 
     @ManyToMany(mappedBy = "patient",fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,

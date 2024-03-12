@@ -9,6 +9,38 @@ The application configuration is done using the `application.yaml` file. The fol
 `spring.datasource.username`: The username for the database (default is `root`).
 
 `spring.datasource.password`: The password for the database (default is `root`).
+### Liquibase Setup
+Liquibase is integrated into the application for managing database changes. Here's how you can set it up:
+
+`liquibase.properties`:
+```  
+spring.liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml
+```  
+To run scripts with Liquibase, you can create `sql` file with changes and update `db.changelog-master.yaml`
+#### Example:
+1)`src/main/resources/db/changelog/changes/myFile.sql`
+2)`db.changelog-master.yaml`:
+``` 
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/changes/myFile.sql
+```
+
+### Email Sending Configuration
+To enable email functionality in the application, you can configure the following properties in the `application.yaml` file:
+``` 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: email
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+``` 
+Replace `username` with your Gmail address and `password` with your Gmail password. It's recommended to use environment variables or secure storage for sensitive information like passwords.
 
 ### Running the Application:
 To run the application, you can use Maven. Navigate to the project directory and execute the following command:

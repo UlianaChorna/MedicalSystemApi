@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/changes/patient.sql
+  - include:
+      file: classpath:/db/changelog/changes/doctor.sql
+  - include:
+      file: classpath:/db/changelog/changes/reception.sql
