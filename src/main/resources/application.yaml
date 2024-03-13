@@ -38,3 +38,9 @@ spring:
         smtp:
           auth: true
           starttls.enable: true
+
+security:
+  jwt:
+    token:
+      secret-key: secret
+      expire-length: 24

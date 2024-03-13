@@ -37,7 +37,7 @@ public class PatientDTOMapperUtil {
 
     }
 
-    public Patient mapFromDTO(PatientDTO dto) {
+    public Patient mapFromDTO(PatientDTO dto, String password) {
 
         return new Patient()
                 .setId(dto.getId())
@@ -45,6 +45,7 @@ public class PatientDTOMapperUtil {
                 .setAge(dto.getAge())
                 .setEmail(dto.getEmail())
                 .setGender(dto.getGender())
+                .setPassword(password)
                 .setConfirmed(false)
                 .setSurname(dto.getSurname());
     }

@@ -5,6 +5,7 @@ import com.uliana.MedicalSystemApi.entity.Patient;
 import com.uliana.MedicalSystemApi.entity.Reception;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
+import com.uliana.MedicalSystemApi.service.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,8 @@ import static org.mockito.Mockito.*;
 class PatientServiceImplTest {
     @Mock
     private PatientRepository patientRepository;
+    @Mock
+    private AuthenticationService authenticationService;
     @InjectMocks
     private PatientServiceImpl patientService;
     @Captor
@@ -52,6 +55,7 @@ class PatientServiceImplTest {
                 .setGender(PATIENT_GENDER)
                 .setAge(10);
 
+        when(authenticationService.encodePassword(anyString())).thenReturn(anyString());
         // When
         patientService.create(dto);
 
@@ -75,6 +79,8 @@ class PatientServiceImplTest {
                 .setSurname(PATIENT_SURNAME)
                 .setGender(PATIENT_GENDER)
                 .setAge(10)
+                .setEmail("test@email")
+                .setPassword("pass")
                 .setReception(new HashSet<>());
 
         //When
@@ -101,6 +107,8 @@ class PatientServiceImplTest {
                 .setAge(10)
                 .setSurname(PATIENT_SURNAME)
                 .setGender(PATIENT_GENDER)
+                .setEmail("test@email")
+                .setPassword("pass")
                 .setReceptions(new HashSet<>());
     }
 }

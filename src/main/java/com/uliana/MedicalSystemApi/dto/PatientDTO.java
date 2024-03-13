@@ -30,6 +30,8 @@ public class PatientDTO {
     private Set<ReceptionDTO> receptions;
     @NotNull
     private String email;
+    @NotNull
+    private String password;
     private boolean confirmed;
 
     @Override
