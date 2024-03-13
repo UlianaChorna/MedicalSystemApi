@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Accessors(chain = true)
+@Table(name = "patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +21,11 @@ public class Patient {
     private String gender;
     private Integer age;
     private String email;
-
+    private String password;
     private boolean confirmed;
 
 
-    @ManyToMany(mappedBy = "patient",fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,
             CascadeType.REFRESH,
             CascadeType.MERGE,

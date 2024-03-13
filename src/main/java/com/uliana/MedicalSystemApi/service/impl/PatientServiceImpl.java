@@ -4,6 +4,7 @@ import com.uliana.MedicalSystemApi.dto.PatientDTO;
 import com.uliana.MedicalSystemApi.entity.Patient;
 import com.uliana.MedicalSystemApi.exception.ResourceNotFoundException;
 import com.uliana.MedicalSystemApi.repository.PatientRepository;
+import com.uliana.MedicalSystemApi.service.AuthenticationService;
 import com.uliana.MedicalSystemApi.service.PatientService;
 import com.uliana.MedicalSystemApi.util.PatientDTOMapperUtil;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.uliana.MedicalSystemApi.util.ExceptionMessagesUtil.PATIENT_FOUND_MESSAGE;
 
@@ -23,13 +25,16 @@ import static com.uliana.MedicalSystemApi.util.ExceptionMessagesUtil.PATIENT_FOU
 @Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
+    private final AuthenticationService authenticationService;
+
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Override
     @Transactional
     public PatientDTO create(PatientDTO dto) {
-        Patient patient = PatientDTOMapperUtil.mapFromDTO(dto);
+        String password = authenticationService.encodePassword(dto.getPassword());
+        Patient patient = PatientDTOMapperUtil.mapFromDTO(dto, password);
         patient  = patientRepository.save(patient);
         sendConfirmationEmail(patient);
 
@@ -43,6 +48,12 @@ public class PatientServiceImpl implements PatientService {
         );
         return PatientDTOMapperUtil.mapToDTO(patient);
     }
+
+    @Override
+    public Optional<Patient> findByEmail(String email) {
+        return patientRepository.findByEmail(email);
+    }
+
 
     public void sendConfirmationEmail(Patient patient) {
         if (Objects.isNull(patient) || Objects.isNull(patient.getEmail())) {
