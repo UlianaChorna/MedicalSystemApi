@@ -5,3 +5,7 @@ databaseChangeLog:
       file: classpath:/db/changelog/changes/doctor.sql
   - include:
       file: classpath:/db/changelog/changes/reception.sql
+  - include:
+      file: classpath:/db/changelog/changes/reception-patient.sql
+  - include:
+      file: classpath:/db/changelog/changes/init-patient.sql
