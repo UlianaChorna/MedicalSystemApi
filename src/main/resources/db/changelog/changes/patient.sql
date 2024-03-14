@@ -1,4 +1,4 @@
-CREATE TABLE patient (
+CREATE TABLE IF NOT EXISTS TABLE patient (
                          age INT,
                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
                          gender VARCHAR(255),
@@ -8,3 +8,4 @@ CREATE TABLE patient (
                          password VARCHAR(255),
                          confirmed BIT
 );
+-- rollback DROP TABLE patient;

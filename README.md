@@ -9,22 +9,22 @@ The application configuration is done using the `application.yaml` file. The fol
 `spring.datasource.username`: The username for the database (default is `root`).
 
 `spring.datasource.password`: The password for the database (default is `root`).
-### Liquibase Setup
-Liquibase is integrated into the application for managing database changes. Here's how you can set it up:
 
-`liquibase.properties`:
-```  
-spring.liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml
-```  
-To run scripts with Liquibase, you can create `sql` file with changes and update `db.changelog-master.yaml`
-#### Example:
-1)`src/main/resources/db/changelog/changes/myFile.sql`
-2)`db.changelog-master.yaml`:
-``` 
-databaseChangeLog:
-  - include:
-      file: classpath:/db/changelog/changes/myFile.sql
-```
+## Liquibase
+
+By following these steps, you can manually perform migration and rollback using Liquibase in your Spring Boot application.
+
+### Manual Migration:
+-Make sure you have Liquibase installed on your computer.
+
+-You can install it from the official website or use dependency management tools like Maven.
+
+-Create a changelog file for each type of database migration. For example in my project it is: `patient.sql`
+
+-Update the db.changelog-master.yaml file to include your change log files.
+
+-Execute Migration: Run the Liquibase command to execute the database migration. For example, using the command line or a script: liquibase --changeLogFile=db.changelog-master.yaml update . This will execute all changes from the change log files in the specified order.
+
 
 ### Email Sending Configuration
 To enable email functionality in the application, you can configure the following properties in the `application.yaml` file:
