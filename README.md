@@ -79,3 +79,20 @@ Make sure to customize the database configuration in the application.yaml file a
 ### Swagger Configuration:
 Swagger UI is integrated into the application for easy API testing and documentation. You can access the Swagger UI at the following URL when the application is running:
 `http://localhost:8080/swagger-ui/index.html#/`
+
+## AWS S3 bucket
+### Step 1: Create a S3 bucket
+1. Log in to the AWS Console at [AWS](https://aws.amazon.com/).
+2. Navigate to the S3 service.
+3. Click on "Create bucket."
+
+#### Step 2: Configure Access
+1. In the AWS Console, navigate to the IAM service.
+2. Create or select a role with access to S3.
+3. Create access key.
+
+### Upload file:
+1. First you need set credentials in [application.yaml](src/main/resources/application.yaml) file.
+2. Run application and use Postman for uploading file into your bucket.
+3. Use a next API: http://localhost:8080/s3/upload, method `POST`.
+4. Change `body` to `form-data`, `key` name like `file` and use custom `Content-Type`: `multipart/form-data; boundary=----WebKitFormBoundaryp7MA4YWxkTrZu0gW`
